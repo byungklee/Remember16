@@ -1,0 +1,19 @@
+Requirement
+* 16 numbers randomly generated out of N
+* 4 operators +, -, *, / must
+* with 4 op and 12 numbs, shuffle, place it, on 2d vector?
+* show it for 5 sec and hide.
+* make 3 combinations to match a target number.
+
+how to generate a target number?
+pick 2 numbers from 2d. pick random operator. Combine it.
+
+
+- double chance
+* make 5 combinations to match a target number.
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <drawable name="blue">#770000ff</drawable>
+    <color name="list_highlight_color">#ccc</color>
+    <color name="initial_background_color">#0088FF</color>
+</resources>
