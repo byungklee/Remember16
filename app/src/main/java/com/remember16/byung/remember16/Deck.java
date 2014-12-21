@@ -1,5 +1,9 @@
 package com.remember16.byung.remember16;
 
+import android.view.View;
+import android.view.animation.Animation;
+import android.widget.Button;
+
 import java.util.HashMap;
 import java.util.Random;
 
@@ -13,11 +17,18 @@ public class Deck {
 
     private HashMap<String, Boolean> duplicationChecker;
 
+
     private Card[] cards;
-    public Deck() {
+    public Deck(int[] buttonIds, View view, Animation animation) {
         cards = new Card[NUMBER_OF_CARDS];
+
         duplicationChecker = new HashMap<String, Boolean>();
         newDeck();
+        for(int i=0;i<NUMBER_OF_CARDS;i++) {
+            cards[i].setButton((Button) view.findViewById(buttonIds[i]));
+            cards[i].setAnimation(animation);
+        }
+
     }
 
     public void newDeck() {

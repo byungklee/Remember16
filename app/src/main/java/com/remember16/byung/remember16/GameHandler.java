@@ -6,7 +6,7 @@ package com.remember16.byung.remember16;
 public class GameHandler {
     private Deck deck;
     public GameHandler() {
-        deck = new Deck();
+        //deck = new Deck();
     }
 
 }

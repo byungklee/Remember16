@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -59,24 +60,35 @@ public class InitialFragment extends Fragment implements Animation.AnimationList
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_initial, container, false);
         mStartButton = (Button) view.findViewById(R.id.start_button);
-        mStartButton.setOnKeyListener(new View.OnKeyListener() {
+//        mStartButton.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                Log.i("Initial", keyCode + " " + event.toString());
+//                return false;
+//            }
+//        });
+
+        mStartButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Log.i("Initial", keyCode + " " + event.toString());
-                return false;
+            public boolean onTouch(View view, MotionEvent arg1) {
+                if (arg1.getAction()==MotionEvent.ACTION_DOWN)
+                    mStartButton.setBackgroundResource(R.drawable.start_button_clicked);
+                else if(arg1.getAction()==MotionEvent.ACTION_HOVER_MOVE) {
+                    //mStartButton.setBackgroundResource(R.drawable.start_button2);
+
+                } else if(arg1.getAction()==MotionEvent.ACTION_UP) {
+                    mStartButton.setBackgroundResource(R.drawable.start_button2);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.container, GameFragment.newInstance());
+                    ft.addToBackStack(null);
+                    ft.commit();
+                } else {
+                    mStartButton.setBackgroundResource(R.drawable.start_button2);
+                }
+                return true;
             }
         });
-        mStartButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-//                Intent intent =  new Intent(getActivity().getApplicationContext(), GameFragment.class);
-//                FragmentTransaction transaction =getFragmentManager().beginTransaction();
-//                transaction.replace(R.id.container, GameFragment.newInstance());
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-                //getFragmentManager().
-            }
-        });
+
 //        button2 = (Button) view.findViewById(R.id.button2);
 //        rotation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.to_middle);
 //        rotation2 = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.from_middle);

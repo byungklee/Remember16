@@ -1,20 +1,54 @@
 package com.remember16.byung.remember16;
 
+import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Created by byung on 12/19/14.
  */
 public class Card {
+
     private String front;
     private String back;
     private Button button;
-    private boolean isFaceUp;
 
-    public Card(String front, String back) {
-        this.front = front;
-        this.back = back;
+    private boolean isFaceUp;
+    private Animation animation;
+    private Animation.AnimationListener animationListener;
+
+    public Card(String frontString, String backString) {
+        this.front = frontString;
+        this.back = backString;
         isFaceUp = false;
+        animationListener = new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if(!isFaceUp) {
+                    button.setText(back);
+                    button.setBackgroundResource(R.drawable.item_background_selected);
+                    isFaceUp = !isFaceUp;
+                } else {
+                    button.setText(front);
+                    button.setBackgroundResource(R.drawable.item_background);
+                    isFaceUp = !isFaceUp;
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+
     }
 
     public String getFront() {
@@ -37,8 +71,19 @@ public class Card {
         return button;
     }
 
-    public void setButton(Button button) {
-        this.button = button;
+    public void setButton(Button buttonA) {
+        this.button = buttonA;
+        this.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isFaceUp) {
+                    animation.setAnimationListener(animationListener);
+                    button.startAnimation(animation);
+
+                }
+            }
+        });
+        this.button.setText(this.front);
     }
 
     public boolean isFaceUp() {
@@ -47,5 +92,13 @@ public class Card {
 
     public void setFaceUp(boolean isFaceUp) {
         this.isFaceUp = isFaceUp;
+    }
+
+    public Animation getAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
     }
 }
