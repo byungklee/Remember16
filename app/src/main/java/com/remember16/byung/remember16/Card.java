@@ -9,6 +9,7 @@ import android.widget.Toast;
 /**
  * Created by byung on 12/19/14.
  */
+//To do Apply factory method
 public class Card {
 
     private String front;
@@ -33,13 +34,15 @@ public class Card {
             @Override
             public void onAnimationEnd(Animation animation) {
                 if(!isFaceUp) {
+
                     button.setText(back);
                     button.setBackgroundResource(R.drawable.item_background_selected);
-                    isFaceUp = !isFaceUp;
+                    setFaceUp(!isFaceUp);
+                    GameHandler.addToStack(Card.this);
                 } else {
                     button.setText(front);
                     button.setBackgroundResource(R.drawable.item_background);
-                    isFaceUp = !isFaceUp;
+                    setFaceUp(!isFaceUp);
                 }
             }
 
@@ -77,13 +80,16 @@ public class Card {
             @Override
             public void onClick(View v) {
                 if(!isFaceUp) {
-                    animation.setAnimationListener(animationListener);
-                    button.startAnimation(animation);
-
+                    flip();
                 }
             }
         });
         this.button.setText(this.front);
+    }
+
+    public void flip() {
+      //  animation.setAnimationListener(animationListener);
+        button.startAnimation(animation);
     }
 
     public boolean isFaceUp() {
@@ -100,5 +106,6 @@ public class Card {
 
     public void setAnimation(Animation animation) {
         this.animation = animation;
+        this.animation.setAnimationListener(animationListener);
     }
 }

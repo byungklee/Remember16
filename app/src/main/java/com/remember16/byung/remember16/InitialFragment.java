@@ -89,45 +89,8 @@ public class InitialFragment extends Fragment implements Animation.AnimationList
             }
         });
 
-//        button2 = (Button) view.findViewById(R.id.button2);
-//        rotation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.to_middle);
-//        rotation2 = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.from_middle);
-//        rotation.setAnimationListener(this);
-//        rotation2.setAnimationListener(this);
-//
-//
-//        button2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(!isFlipped[0][1]) {
-//                    isFlipped[0][1] = true;
-//                    button2.startAnimation(rotation);
-//
-//
-//                } else {
-//                    isFlipped[0][1] = false;
-//                    button2.setBackgroundResource(R.drawable.red_background);
-//                    button2.startAnimation(rotation2);
-//                }
-//
-//            }
-//        });
-
-
-
-
         return view;
     }
-
-
-//    @Override
-//    public void onAnimationEnd(Animation animation) {
-//        if (animation==rotation2) {
-//
-//        } else {
-//
-//        }
-//    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

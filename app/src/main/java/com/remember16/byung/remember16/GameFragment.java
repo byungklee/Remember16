@@ -22,15 +22,9 @@ import android.widget.TextView;
  */
 public class GameFragment extends Fragment {
 
-    private Animation rotation;
-    private Animation rotation2;
-
-    private Button[] buttons = new Button[16];
+    private Animation[] rotations  = new Animation[16];
     private int[] buttonIds = new int[16];
-    private boolean[] isFront = new boolean[16];
-    private Animation.AnimationListener[] animationListeners = new Animation.AnimationListener[16];
-
-    private Deck deck;
+    private GameHandler gameHandler;
 
     public static Fragment newInstance() {
         GameFragment fragment = new GameFragment();
@@ -57,8 +51,6 @@ public class GameFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
 
-
-
         buttonIds[0] = R.id.button1;
         buttonIds[1] = R.id.button2;
         buttonIds[2] = R.id.button3;
@@ -76,65 +68,10 @@ public class GameFragment extends Fragment {
         buttonIds[14] = R.id.button15;
         buttonIds[15] = R.id.button16;
 
-
-
-        rotation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.to_middle);
-        deck = new Deck(buttonIds, view, rotation);
-//
-//
-//
-//        for(int i=0;i<16;i++) {
-//            buttons[i] = (Button) view.findViewById(buttonIds[i]);
-//            isFront[i] = false;
-//            final int buttonNumber = i;
-//
-//            buttons[i].setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(isFront[buttonNumber] == false) {
-//
-//
-//                        rotation.setAnimationListener(animationListeners[buttonNumber]);
-//                        buttons[buttonNumber].startAnimation(rotation);
-//
-//                    }
-//                    else {
-//
-//                        rotation.setAnimationListener(animationListeners[buttonNumber]);
-//                        buttons[buttonNumber].startAnimation(rotation);
-//
-//                    }
-//                }
-//            });
-//
-//            animationListeners[i] = new Animation.AnimationListener() {
-//                @Override
-//                public void onAnimationStart(Animation animation) {
-//
-//                }
-//
-//                @Override
-//                public void onAnimationEnd(Animation animation) {
-//                    if(animation == rotation) {
-//                        if(isFront[buttonNumber] == false) {
-//                            buttons[buttonNumber].setBackgroundResource(R.drawable.item_background_selected);
-//                            isFront[buttonNumber] = true;
-//                        }
-//                        else {
-//                            buttons[buttonNumber].setBackgroundResource(R.drawable.item_background);
-//                            isFront[buttonNumber] = false;
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onAnimationRepeat(Animation animation) {
-//
-//                }
-//            };
-//        }
-
-
+        for(int i=0;i<16;i++) {
+            rotations[i] = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.to_middle);
+        }
+        gameHandler = new GameHandler(buttonIds, view, rotations);
 
         return view;
     }

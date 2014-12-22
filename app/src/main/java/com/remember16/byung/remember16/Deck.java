@@ -19,14 +19,14 @@ public class Deck {
 
 
     private Card[] cards;
-    public Deck(int[] buttonIds, View view, Animation animation) {
+    public Deck(int[] buttonIds, View view, Animation[] animations) {
         cards = new Card[NUMBER_OF_CARDS];
 
         duplicationChecker = new HashMap<String, Boolean>();
         newDeck();
         for(int i=0;i<NUMBER_OF_CARDS;i++) {
             cards[i].setButton((Button) view.findViewById(buttonIds[i]));
-            cards[i].setAnimation(animation);
+            cards[i].setAnimation(animations[i]);
         }
 
     }
