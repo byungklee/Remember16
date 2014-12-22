@@ -1,11 +1,56 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.remember16.byung.remember16.InitialFragment"
-    android:orientation="vertical"
+
     android:layout_gravity="bottom"
     >
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Remember 16"
+        android:textSize="32sp"/>
+    <TextView
+        android:id="@+id/my_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:text=""
+        android:layout_alignTop="@+id/target_number"
+        android:textSize="32sp"
+        android:drawableTop="@drawable/score_image"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/target_number"
+        android:layout_alignParentRight="true"
+        android:text=""
+        android:textSize="32sp"
+        android:drawableTop="@drawable/time_image"/>
+
+
+    <TextView
+        android:id="@+id/target_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="48dp"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="50sp"
+        android:drawableTop="@drawable/target_number_image"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -166,5 +211,6 @@
 
             />
         </LinearLayout>
+    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

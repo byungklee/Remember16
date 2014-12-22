@@ -28,7 +28,6 @@ public class Deck {
             cards[i].setButton((Button) view.findViewById(buttonIds[i]));
             cards[i].setAnimation(animations[i]);
         }
-
     }
 
     public void newDeck() {
@@ -63,7 +62,7 @@ public class Deck {
      */
     private void createNumberCardAt(int i) {
         int temp = Util.getRandomInt(20);
-        while(!isDuplicate("" + temp)) {
+        while(isDuplicate("" + temp)) {
             temp = Util.getRandomInt(20);
         }
         cards[i] = new Card(""+((char)('A' + i)), ""+temp);
@@ -75,10 +74,11 @@ public class Deck {
      */
     private void createOperatorCardAt(int i) {
         String temp = Util.getRandomOperator();
-        while(!isDuplicate(temp)) {
+        while(isDuplicate(temp)) {
             temp = Util.getRandomOperator();
         }
         cards[i] = new Card(""+((char)('A' + i)),temp);
+        cards[i].setOperator(true);
     }
 
     /**
@@ -100,6 +100,34 @@ public class Deck {
             throw new IndexOutOfBoundsException();
         }
         return cards[index];
+    }
+
+    public int generateTargetNumber() {
+
+        int first = Util.getRandomInt(20);
+        int second = Util.getRandomInt(20);
+        while(!duplicationChecker.containsKey(""+first)) {
+            first =Util.getRandomInt(20);
+        }
+        while(!duplicationChecker.containsKey(""+second) || second == first) {
+            second = Util.getRandomInt(20);
+        }
+
+        String operator = Util.getRandomOperator();
+        if(operator.equals("*")) {
+            return first * second;
+        } else if(operator.equals("-")) {
+            return first - second;
+        } else if(operator.equals("+")) {
+            return first + second;
+        } else if(operator.equals("/")) {
+            return first / second;
+        }
+        return 0;
+    }
+
+    public Card[] getCards() {
+        return cards;
     }
 
 }

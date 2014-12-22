@@ -17,6 +17,7 @@ public class Card {
     private Button button;
 
     private boolean isFaceUp;
+    private boolean isOperator;
     private Animation animation;
     private Animation.AnimationListener animationListener;
 
@@ -34,11 +35,11 @@ public class Card {
             @Override
             public void onAnimationEnd(Animation animation) {
                 if(!isFaceUp) {
-
                     button.setText(back);
                     button.setBackgroundResource(R.drawable.item_background_selected);
                     setFaceUp(!isFaceUp);
-                    GameHandler.addToStack(Card.this);
+                    if(!GameHandler.init)
+                        GameHandler.addToStack(Card.this);
                 } else {
                     button.setText(front);
                     button.setBackgroundResource(R.drawable.item_background);
@@ -107,5 +108,13 @@ public class Card {
     public void setAnimation(Animation animation) {
         this.animation = animation;
         this.animation.setAnimationListener(animationListener);
+    }
+
+    public boolean isOperator() {
+        return isOperator;
+    }
+
+    public void setOperator(boolean isOperator) {
+        this.isOperator = isOperator;
     }
 }
