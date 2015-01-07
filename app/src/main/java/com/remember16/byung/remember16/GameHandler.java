@@ -19,23 +19,18 @@ public class GameHandler {
     private static Deck deck;
     private static int counter = 0;
     private static boolean doubleChance = false;
-    private static Queue<Card> cardQueue = new LinkedList<Card>();
-    private Timer timer;
+    private static Queue<Card> cardQueue = new LinkedList<>();
     private static int targetNumber = 0;
     private static int score = 0;
     private static AnswerListener al;
     public static boolean init;
 
-
-
-    //buttonIds, view, rotation
     public GameHandler(int[] buttonIds, View view, Animation[] rotations, AnswerListener al) {
         deck = new Deck(buttonIds, view, rotations);
         score = 0;
         GameFragment.score.setText("" + score);
         this.al = al;
         init = true;
-
     }
 
     public static void incCounter() {
@@ -131,7 +126,6 @@ public class GameHandler {
     }
 
     public static void addToStack(Card card) {
-
         cardQueue.add(card);
         incCounter();
     }

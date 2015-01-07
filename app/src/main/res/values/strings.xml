@@ -7,5 +7,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="temp">temp</string>
     <string name="title">Remember 16</string>
-
+    <string name="replay">Replay?</string>
+    <string name="game_over">Game Over</string>
 </resources>

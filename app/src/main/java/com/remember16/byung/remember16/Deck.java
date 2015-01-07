@@ -13,7 +13,7 @@ import java.util.Random;
 public class Deck {
     //create 16 cards
     private final int NUMBER_OF_CARDS = 16;
-    private final int PICK_NUMBER = 0;
+    private final int PICK_NUMBER = 1;
 
     private HashMap<String, Boolean> duplicationChecker;
 

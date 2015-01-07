@@ -1,5 +1,7 @@
 package com.remember16.byung.remember16;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,7 @@ public class GameFragment extends Fragment {
     public static TextView time;
     private CountDownTimer timer;
     private CountDownTimer mainTimer;
+    GameEndDialogFragment gameEndDialog = null;
 
     private AnswerListener al = new AnswerListener() {
         @Override
@@ -48,6 +52,7 @@ public class GameFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+        setRetainInstance(true);
     }
 
     private void initButtonIds() {
@@ -57,13 +62,11 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_game, container, false);
+        final View view = inflater.inflate(R.layout.fragment_game, container, false);
 
         targetNumber = (TextView) view.findViewById(R.id.target_number);
         score = (TextView) view.findViewById(R.id.my_score);
         time = (TextView) view.findViewById(R.id.time);
-
-
 
         buttonIds[0] = R.id.button1;
         buttonIds[1] = R.id.button2;
@@ -85,8 +88,8 @@ public class GameFragment extends Fragment {
         for(int i=0;i<16;i++) {
             rotations[i] = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.to_middle);
         }
-        gameHandler = new GameHandler(buttonIds, view, rotations, al);
-        gameHandler.flipAll();
+        gameReset(view);
+
         timer = new CountDownTimer(5000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -111,11 +114,39 @@ public class GameFragment extends Fragment {
             @Override
             public void onFinish() {
                 time.setText("" + 0);
-                toast("Game End!");
+                //Toast.makeText(getActivity().getApplicationContext(), "Game End", Toast.LENGTH_SHORT).show();
+//                final Dialog gameEndDialog = new Dialog(mContext);
+//                gameEndDialog.setContentView(R.layout.game_end_popup);
+//                Button button = (Button) gameEndDialog.findViewById(R.id.replay_button);
+//                button.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        gameReset(view);
+//                        timer.start();
+//                    }
+//                });
+
+
+                gameEndDialog = GameEndDialogFragment.newInstance(new RestartCallback() {
+
+                    @Override
+                    public void restart() {
+                        gameReset(view);
+                        timer.start();
+                        gameEndDialog.dismiss();
+                    }
+                });
+                gameEndDialog.show(getFragmentManager(),"Diag");
+
             }
         };
         timer.start();
         return view;
+    }
+
+    public void gameReset(View view) {
+        gameHandler = new GameHandler(buttonIds, view, rotations, al);
+        gameHandler.flipAll();
     }
 
     public void toast(String s) {
